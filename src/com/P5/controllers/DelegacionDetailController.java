@@ -1,13 +1,17 @@
 package com.P5.controllers;
 
 import com.P5.entities.Delegacion;
+import com.P5.repositories.DelegacionRepository;
+import com.P5.utils.Dialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -38,6 +42,9 @@ public class DelegacionDetailController {
 
     @FXML
     private Button editBtn;
+
+    @FXML
+    private Button deleteBtn;
 
     private Delegacion delegacionSeleted;
 
@@ -71,5 +78,19 @@ public class DelegacionDetailController {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setTitle("ONG Entre Culturas - Editar Delegacion " + delegacionSeleted.getId());
         window.setScene(new Scene(delegacionFom, 500, 500));
+    }
+
+    @FXML
+    void deleteDelegacion(ActionEvent event) {
+        ButtonType responseDialog = Dialog.confirmation("¿Desea eleminar definitivamente esta delegación?");
+
+        if (responseDialog == ButtonType.YES) {
+            DelegacionRepository.delete(delegacionSeleted);
+            try {
+                goToDelegacionLayout(null);
+            } catch (IOException e) {
+                Dialog.error(e.getMessage());
+            }
+        }
     }
 }

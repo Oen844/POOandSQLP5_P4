@@ -29,4 +29,12 @@ public class DelegacionRepository {
 
         return delegacion;
     }
+
+    public static void delete(Delegacion delegacion) {
+        Session session = DBConnection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(delegacion);
+        transaction.commit();
+        session.close();
+    }
 }
