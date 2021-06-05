@@ -1,4 +1,4 @@
-package com.P5.controllers;
+package com.P5.controllers.delegacion;
 
 import com.P5.entities.Delegacion;
 import com.P5.repositories.DelegacionRepository;
@@ -75,7 +75,7 @@ public class DelegacionLayoutController implements Initializable {
 
     private void goTODelegacionDetail(MouseEvent event, Delegacion delegacionSeleted) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/delegacionDetail.fxml"));
+        loader.setLocation(getClass().getResource("../../views/delegacion/delegacionDetail.fxml"));
         Parent delegacionDetail = loader.load();
 
         DelegacionDetailController delegacionDetailController = loader.getController();
@@ -88,7 +88,7 @@ public class DelegacionLayoutController implements Initializable {
 
     @FXML
     void goToHome(ActionEvent event) throws IOException {
-        Parent index = FXMLLoader.load(getClass().getResource("../views/index.fxml"));
+        Parent index = FXMLLoader.load(getClass().getResource("../../views/index.fxml"));
         Stage window = (Stage) homeBtn.getScene().getWindow();
         window.setTitle("ONG Entre Culturas");
         window.setScene(new Scene(index, 500, 500));
@@ -96,7 +96,7 @@ public class DelegacionLayoutController implements Initializable {
 
     @FXML
     void goToaddDelegacion(ActionEvent event) throws IOException {
-        Parent index = FXMLLoader.load(getClass().getResource("../views/delegacionForm.fxml"));
+        Parent index = FXMLLoader.load(getClass().getResource("../../views/delegacion/delegacionForm.fxml"));
         Stage window = (Stage) homeBtn.getScene().getWindow();
         window.setTitle("ONG Entre Culturas - Nueva Delegación");
         window.setScene(new Scene(index, 500, 500));

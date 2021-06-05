@@ -1,4 +1,4 @@
-package com.P5.controllers;
+package com.P5.controllers.delegacion;
 
 import com.P5.entities.Delegacion;
 import com.P5.repositories.DelegacionRepository;
@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -50,7 +49,7 @@ public class DelegacionDetailController {
 
     @FXML
     void goToDelegacionLayout(ActionEvent event) throws IOException {
-        Parent delegacionesLayout = FXMLLoader.load(getClass().getResource("../views/delegacionesLayout.fxml"));
+        Parent delegacionesLayout = FXMLLoader.load(getClass().getResource("../../views/delegacion/delegacionesLayout.fxml"));
         Stage window = (Stage) delegacionLayoutBtn.getScene().getWindow();
         window.setTitle("ONG Entre Culturas - Delegaciones");
         window.setScene(new Scene(delegacionesLayout, 500, 500));
@@ -69,7 +68,7 @@ public class DelegacionDetailController {
     @FXML
     void goToEditDelegacionForm(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../views/delegacionForm.fxml"));
+        loader.setLocation(getClass().getResource("../../views/delegacion/delegacionForm.fxml"));
         Parent delegacionFom = loader.load();
 
         DelegacionFormController delegacionFormController = loader.getController();

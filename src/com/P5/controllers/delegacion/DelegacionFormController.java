@@ -1,4 +1,4 @@
-package com.P5.controllers;
+package com.P5.controllers.delegacion;
 
 import com.P5.entities.Delegacion;
 import com.P5.repositories.DelegacionRepository;
@@ -50,7 +50,7 @@ public class DelegacionFormController {
 
     @FXML
     void goToDelegacionLayout(ActionEvent event) throws IOException {
-        Parent delegacionesLayout = FXMLLoader.load(getClass().getResource("../views/delegacionesLayout.fxml"));
+        Parent delegacionesLayout = FXMLLoader.load(getClass().getResource("../../views/delegacion/delegacionesLayout.fxml"));
         Stage window = (Stage) delegacionLayoutBtn.getScene().getWindow();
         window.setTitle("ONG Entre Culturas - Delegaciones");
         window.setScene(new Scene(delegacionesLayout, 500, 500));
