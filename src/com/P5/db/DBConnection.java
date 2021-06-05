@@ -29,11 +29,8 @@ public class DBConnection {
 
         MetadataSources metadataSources = new MetadataSources(serviceRegistry);
         metadataSources.addAnnotatedClass(Delegacion.class);
-//        metadataSources.addAnnotatedClass(Personal.class);
-//        metadataSources.addAnnotatedClass(Proyecto.class);
         Metadata metadata = metadataSources.buildMetadata();
 
-        // here we build the SessionFactory (Hibernate 5.4)
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
         return sessionFactory.getCurrentSession();
     }

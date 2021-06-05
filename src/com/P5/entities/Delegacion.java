@@ -1,7 +1,6 @@
 package com.P5.entities;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity(name = "Delegacion")
 public class Delegacion {
@@ -39,10 +38,6 @@ public class Delegacion {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCiudad() {
@@ -97,16 +92,4 @@ public class Delegacion {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Delegacion that = (Delegacion) o;
-        return Objects.equals(id, that.id) && Objects.equals(ciudad, that.ciudad) && Objects.equals(direccion, that.direccion) && Objects.equals(telefono, that.telefono) && Objects.equals(email, that.email) && Objects.equals(central, that.central);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, ciudad, direccion, telefono, email, central);
-    }
 }

@@ -12,7 +12,6 @@ public class DelegacionRepository {
         Session session = DBConnection.getSession();
         session.beginTransaction();
         List<Delegacion> delegaciones = session.createQuery("FROM Delegacion", Delegacion.class).list();
-//        session.beginTransaction().commit();
         session.close();
 
         return delegaciones;
