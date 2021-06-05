@@ -91,6 +91,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button fx:id="editBtn" layoutX="30.0" layoutY="344.0" mnemonicParsing="false" onAction="#goToEditDelegacionForm" prefHeight="48.0" prefWidth="440.0" text="Editar" />
             </children>
         </Pane>
     </children>

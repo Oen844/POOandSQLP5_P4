@@ -20,6 +20,9 @@ public class DelegacionFormController {
     private Button delegacionLayoutBtn;
 
     @FXML
+    private Label formTitle;
+
+    @FXML
     private TextField direccionField;
 
     @FXML
@@ -43,6 +46,8 @@ public class DelegacionFormController {
     @FXML
     private Button saveBtn;
 
+    private Delegacion delegacion;
+
     @FXML
     void goToDelegacionLayout(ActionEvent event) throws IOException {
         Parent delegacionesLayout = FXMLLoader.load(getClass().getResource("../views/delegacionesLayout.fxml"));
@@ -59,10 +64,18 @@ public class DelegacionFormController {
         String email = emailField.getText();
 
         if (!ciudad.isEmpty() && !direccion.isEmpty() && !telefono.isEmpty() && !email.isEmpty()) {
-            Delegacion newDelegacion = new Delegacion(ciudad, direccion, telefono, email, centralFieldYes.isSelected());
+            if (this.delegacion != null) {
+                delegacion.setCiudad(ciudad);
+                delegacion.setDireccion(direccion);
+                delegacion.setTelefono(telefono);
+                delegacion.setEmail(email);
+                delegacion.setCentral(centralFieldYes.isSelected());
+            } else {
+                delegacion = new Delegacion(ciudad, direccion, telefono, email, centralFieldYes.isSelected());
+            }
 
             try {
-                DelegacionRepository.add(newDelegacion);
+                DelegacionRepository.save(delegacion);
                 goToDelegacionLayout(null);
             } catch (ConstraintViolationException cve) {
                 Dialog.error(cve.getSQLException().getMessage());
@@ -72,5 +85,17 @@ public class DelegacionFormController {
         } else {
             Dialog.error("Todos los campos son obligatorios.");
         }
+    }
+
+    public void editDelegacion(Delegacion delegacionSeleted) {
+        this.delegacion = delegacionSeleted;
+        formTitle.setText("Editar Delegación");
+
+        direccionField.setText(delegacionSeleted.getDireccion());
+        ciudadField.setText(delegacionSeleted.getCiudad());
+        emailField.setText(delegacionSeleted.getEmail());
+        telefonoField.setText(delegacionSeleted.getTelefono());
+        centralFieldYes.setSelected(delegacionSeleted.getCentral());
+        centralFieldNo.setSelected(!delegacionSeleted.getCentral());
     }
 }

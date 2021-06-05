@@ -20,13 +20,13 @@ public class DelegacionRepository {
         return delegaciones;
     }
 
-    public static Delegacion add(Delegacion newDelegacion) throws ConstraintViolationException {
+    public static Delegacion save(Delegacion delegacion) throws ConstraintViolationException {
         Session session = DBConnection.getSession();
         Transaction transaction = session.beginTransaction();
-        session.save(newDelegacion);
+        session.saveOrUpdate(delegacion);
         transaction.commit();
         session.close();
 
-        return newDelegacion;
+        return delegacion;
     }
 }
