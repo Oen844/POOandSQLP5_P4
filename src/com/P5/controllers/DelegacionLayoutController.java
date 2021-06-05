@@ -30,6 +30,9 @@ public class DelegacionLayoutController implements Initializable {
     private Button homeBtn;
 
     @FXML
+    private Button addDelegacionBtn;
+
+    @FXML
     private TableView<Delegacion> delegacionesList;
 
     @Override
@@ -88,6 +91,14 @@ public class DelegacionLayoutController implements Initializable {
         Parent index = FXMLLoader.load(getClass().getResource("../views/index.fxml"));
         Stage window = (Stage) homeBtn.getScene().getWindow();
         window.setTitle("ONG Entre Culturas");
+        window.setScene(new Scene(index, 500, 500));
+    }
+
+    @FXML
+    void goToaddDelegacion(ActionEvent event) throws IOException {
+        Parent index = FXMLLoader.load(getClass().getResource("../views/delegacionForm.fxml"));
+        Stage window = (Stage) homeBtn.getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Nueva Delegación");
         window.setScene(new Scene(index, 500, 500));
     }
 }

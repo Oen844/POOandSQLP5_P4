@@ -36,6 +36,7 @@
               </columns>
             </TableView>
             <Button fx:id="homeBtn" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#goToHome" text="Inicio" />
+            <Button fx:id="addDelegacionBtn" layoutX="441.0" layoutY="48.0" mnemonicParsing="false" onAction="#goToaddDelegacion" text="Añadir" />
             </children>
         </Pane>
     </children>
