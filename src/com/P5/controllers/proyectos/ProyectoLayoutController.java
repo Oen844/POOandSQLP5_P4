@@ -3,7 +3,6 @@ package com.P5.controllers.proyectos;
 import com.P5.controllers.delegacion.DelegacionDetailController;
 import com.P5.entities.Delegacion;
 import com.P5.entities.Proyecto;
-import com.P5.repositories.DelegacionRepository;
 import com.P5.repositories.ProyectoRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -74,33 +73,33 @@ public class ProyectoLayoutController implements Initializable {
 
         proyectosList.setItems(proyectosData);
 
-//        proyectosList.setOnMousePressed(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-//                    System.out.println(proyectosList.getSelectionModel().getSelectedItem());
-//                    try {
-//                        goTODelegacionDetail(event, proyectosList.getSelectionModel().getSelectedItem());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
+        proyectosList.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    System.out.println(proyectosList.getSelectionModel().getSelectedItem());
+                    try {
+                        goTOProyectoDetail(event, proyectosList.getSelectionModel().getSelectedItem());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
-//    private void goTODelegacionDetail(MouseEvent event, Delegacion delegacionSeleted) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("../../views/delegacion/delegacionDetail.fxml"));
-//        Parent delegacionDetail = loader.load();
-//
-//        DelegacionDetailController delegacionDetailController = loader.getController();
-//        delegacionDetailController.showDelegacionDetail(delegacionSeleted);
-//
-//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        window.setTitle("ONG Entre Culturas - Delegacion " + delegacionSeleted.getId());
-//        window.setScene(new Scene(delegacionDetail, 500, 500));
-//    }
+    private void goTOProyectoDetail(MouseEvent event, Proyecto proyectoSeleted) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../../views/proyecto/proyectoDetail.fxml"));
+        Parent delegacionDetail = loader.load();
+
+        ProyectoDetailController proyectoDetailController = loader.getController();
+        proyectoDetailController.showProyectoDetail(proyectoSeleted);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Proyecto " + proyectoSeleted.getId());
+        window.setScene(new Scene(delegacionDetail, 500, 500));
+    }
 
     @FXML
     void goToHome(ActionEvent event) throws IOException {

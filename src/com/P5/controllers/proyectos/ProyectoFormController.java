@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -110,8 +111,9 @@ public class ProyectoFormController implements Initializable {
 //                delegacion.setCentral(centralFieldYes.isSelected());
             } else {
                 proyecto = new Proyecto(nombre, pais, localizacion, lineaAccion, subLineaAccion,
-                        new Date(fechaInicio.toEpochDay()), new Date(fechaFin.toEpochDay()), socioLocal, financiador,
-                        financiacionAportada, delegacion);
+                        new Date(fechaInicio.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()),
+                        new Date(fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()),
+                        socioLocal, financiador, financiacionAportada, delegacion);
             }
 
             try {
