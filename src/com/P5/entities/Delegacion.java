@@ -26,7 +26,7 @@ public class Delegacion {
     @Column(nullable = false, columnDefinition = "tinyint(1) default 0")
     private Boolean central;
 
-    @OneToMany(mappedBy = "delegacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "delegacion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Proyecto> proyectos;
 
     public Delegacion(String ciudad, String direccion, String telefono, String email, Boolean central) {
@@ -83,6 +83,10 @@ public class Delegacion {
 
     public void setCentral(Boolean central) {
         this.central = central;
+    }
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
     }
 
     @Override

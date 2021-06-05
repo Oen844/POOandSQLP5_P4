@@ -1,20 +1,25 @@
 package com.P5.controllers.delegacion;
 
 import com.P5.entities.Delegacion;
+import com.P5.entities.Proyecto;
 import com.P5.repositories.DelegacionRepository;
+import com.P5.repositories.ProyectoRepository;
 import com.P5.utils.Dialog;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
 
 public class DelegacionDetailController {
 
@@ -40,6 +45,12 @@ public class DelegacionDetailController {
     private Label centralLabel;
 
     @FXML
+    private TitledPane proyectosPanel;
+
+    @FXML
+    private TableView<Proyecto> proyectosTablePanel;
+
+    @FXML
     private Button editBtn;
 
     @FXML
@@ -63,6 +74,38 @@ public class DelegacionDetailController {
         emailLabel.setText(delegacionSeleted.getEmail());
         telefonoLabel.setText(delegacionSeleted.getTelefono());
         centralLabel.setText(delegacionSeleted.getCentral() ? "Si" : "No");
+
+
+        List<Proyecto> proyectos = delegacionSeleted.getProyectos();
+
+        TableColumn id = new TableColumn("ID");
+        TableColumn nombre = new TableColumn("Nombre");
+        TableColumn pais = new TableColumn("País");
+        TableColumn localizacion = new TableColumn("Localización");
+        TableColumn lineaAccion = new TableColumn("Linea de Acción");
+        TableColumn subLineaAccion = new TableColumn("SubLinea de Acción");
+        TableColumn fechaInicio = new TableColumn("Fecha de Inicio");
+        TableColumn fechaFin = new TableColumn("Fecha de Fin");
+        TableColumn socioLocal = new TableColumn("Socio Local");
+        TableColumn financiador = new TableColumn("Financiador");
+        TableColumn financiacionAportada = new TableColumn("Financiación Aportada");
+        proyectosTablePanel.getColumns().addAll(id, nombre, pais, localizacion, lineaAccion, subLineaAccion, fechaInicio, fechaFin, socioLocal, financiador, financiacionAportada);
+
+        ObservableList<Proyecto> proyectosData = FXCollections.observableArrayList(proyectos);
+
+        id.setCellValueFactory(new PropertyValueFactory<Proyecto, Long>("id"));
+        nombre.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("nombre"));
+        pais.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("pais"));
+        localizacion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("localizacion"));
+        lineaAccion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("lineaAccion"));
+        subLineaAccion.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("subLineaAccion"));
+        fechaInicio.setCellValueFactory(new PropertyValueFactory<Proyecto, Date>("fechaInicio"));
+        fechaFin.setCellValueFactory(new PropertyValueFactory<Proyecto, Date>("fechaFin"));
+        socioLocal.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("socioLocal"));
+        financiador.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("financiador"));
+        financiacionAportada.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("financiacionAportada"));
+
+        proyectosTablePanel.setItems(proyectosData);
     }
 
     @FXML
