@@ -3,6 +3,8 @@ package com.P5.repositories;
 import com.P5.db.DBConnection;
 import com.P5.entities.Proyecto;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 
@@ -17,16 +19,16 @@ public class ProyectoRepository {
         return proyectos;
     }
 
-//    public static Delegacion save(Delegacion delegacion) throws ConstraintViolationException {
-//        Session session = DBConnection.getSession();
-//        Transaction transaction = session.beginTransaction();
-//        session.saveOrUpdate(delegacion);
-//        transaction.commit();
-//        session.close();
-//
-//        return delegacion;
-//    }
-//
+    public static Proyecto save(Proyecto proyecto) throws ConstraintViolationException {
+        Session session = DBConnection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.saveOrUpdate(proyecto);
+        transaction.commit();
+        session.close();
+
+        return proyecto;
+    }
+
 //    public static void delete(Delegacion delegacion) {
 //        Session session = DBConnection.getSession();
 //        Transaction transaction = session.beginTransaction();

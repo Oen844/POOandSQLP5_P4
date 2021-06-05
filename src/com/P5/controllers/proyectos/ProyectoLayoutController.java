@@ -54,21 +54,23 @@ public class ProyectoLayoutController implements Initializable {
         TableColumn socioLocal = new TableColumn("Socio Local");
         TableColumn financiador = new TableColumn("Financiador");
         TableColumn financiacionAportada = new TableColumn("Financiación Aportada");
-        proyectosList.getColumns().addAll(id, nombre, pais, localizacion, lineaAccion, subLineaAccion, fechaInicio, fechaFin, socioLocal, financiador, financiacionAportada);
+        TableColumn delegacion = new TableColumn("Delegacion ID");
+        proyectosList.getColumns().addAll(id, nombre, pais, localizacion, lineaAccion, subLineaAccion, fechaInicio, fechaFin, socioLocal, financiador, financiacionAportada, delegacion);
 
         ObservableList<Proyecto> proyectosData = FXCollections.observableArrayList(proyectos);
 
-        id.setCellValueFactory(new PropertyValueFactory<Delegacion, Long>("id"));
-        nombre.setCellValueFactory(new PropertyValueFactory<Delegacion, String>("nombre"));
-        pais.setCellValueFactory(new PropertyValueFactory<Delegacion, String>("pais"));
-        localizacion.setCellValueFactory(new PropertyValueFactory<Delegacion, String>("localizacion"));
-        lineaAccion.setCellValueFactory(new PropertyValueFactory<Delegacion, String>("lineaAccion"));
-        subLineaAccion.setCellValueFactory(new PropertyValueFactory<Delegacion, Boolean>("subLineaAccion"));
-        fechaInicio.setCellValueFactory(new PropertyValueFactory<Delegacion, Date>("fechaInicio"));
-        fechaFin.setCellValueFactory(new PropertyValueFactory<Delegacion, Date>("fechaFin"));
-        socioLocal.setCellValueFactory(new PropertyValueFactory<Delegacion, Boolean>("socioLocal"));
-        financiador.setCellValueFactory(new PropertyValueFactory<Delegacion, Boolean>("financiador"));
-        financiacionAportada.setCellValueFactory(new PropertyValueFactory<Delegacion, Boolean>("financiacionAportada"));
+        id.setCellValueFactory(new PropertyValueFactory<Proyecto, Long>("id"));
+        nombre.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("nombre"));
+        pais.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("pais"));
+        localizacion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("localizacion"));
+        lineaAccion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("lineaAccion"));
+        subLineaAccion.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("subLineaAccion"));
+        fechaInicio.setCellValueFactory(new PropertyValueFactory<Proyecto, Date>("fechaInicio"));
+        fechaFin.setCellValueFactory(new PropertyValueFactory<Proyecto, Date>("fechaFin"));
+        socioLocal.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("socioLocal"));
+        financiador.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("financiador"));
+        financiacionAportada.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("financiacionAportada"));
+        delegacion.setCellValueFactory(new PropertyValueFactory<Proyecto, Delegacion>("delegacion"));
 
         proyectosList.setItems(proyectosData);
 
@@ -110,9 +112,9 @@ public class ProyectoLayoutController implements Initializable {
 
     @FXML
     void goToAddProyecto(ActionEvent event) throws IOException {
-//        Parent index = FXMLLoader.load(getClass().getResource("../../views/delegacion/delegacionForm.fxml"));
-//        Stage window = (Stage) homeBtn.getScene().getWindow();
-//        window.setTitle("ONG Entre Culturas - Nueva Delegación");
-//        window.setScene(new Scene(index, 500, 500));
+        Parent index = FXMLLoader.load(getClass().getResource("../../views/proyecto/proyectoForm.fxml"));
+        Stage window = (Stage) homeBtn.getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Nuevo Proyecto");
+        window.setScene(new Scene(index, 500, 500));
     }
 }
