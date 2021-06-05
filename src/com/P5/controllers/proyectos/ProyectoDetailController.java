@@ -4,6 +4,7 @@ import com.P5.entities.Proyecto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -77,19 +78,19 @@ public class ProyectoDetailController {
         financiacionAportadaLabel.setText(proyectoSeleted.getFinanciacionAportada());
     }
 
-//    @FXML
-//    void goToEditProyectoForm(ActionEvent event) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("../../views/delegacion/delegacionForm.fxml"));
-//        Parent delegacionFom = loader.load();
-//
-//        DelegacionFormController delegacionFormController = loader.getController();
-//        delegacionFormController.editDelegacion(delegacionSeleted);
-//
-//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        window.setTitle("ONG Entre Culturas - Editar Delegacion " + delegacionSeleted.getId());
-//        window.setScene(new Scene(delegacionFom, 500, 500));
-//    }
+    @FXML
+    void goToEditProyectoForm(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../../views/proyecto/proyectoForm.fxml"));
+        Parent delegacionFom = loader.load();
+
+        ProyectoFormController proyectoFormController = loader.getController();
+        proyectoFormController.editProyecto(proyectoSelected);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Editar Proyecto " + proyectoSelected.getId());
+        window.setScene(new Scene(delegacionFom, 500, 500));
+    }
 
 //    @FXML
 //    void deleteProyecto(ActionEvent event) {

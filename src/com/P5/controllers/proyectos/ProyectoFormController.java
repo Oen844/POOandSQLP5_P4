@@ -22,6 +22,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -103,17 +104,25 @@ public class ProyectoFormController implements Initializable {
         if (!nombre.isEmpty() && !pais.isEmpty() && !localizacion.isEmpty() && !lineaAccion.isEmpty()
                 && !subLineaAccion.isEmpty() && fechaInicio != null && fechaFin != null && !socioLocal.isEmpty()
                 && !financiador.isEmpty() && !financiacionAportada.isEmpty() && delegacion != null) {
+
+            Date fechaInicioEpochMilli = new Date(fechaInicio.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            Date fechaFinEpochMilli = new Date(fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
+
             if (this.proyecto != null) {
-//                delegacion.setCiudad(ciudad);
-//                delegacion.setDireccion(direccion);
-//                delegacion.setTelefono(telefono);
-//                delegacion.setEmail(email);
-//                delegacion.setCentral(centralFieldYes.isSelected());
+                proyecto.setNombre(nombre);
+                proyecto.setPais(pais);
+                proyecto.setLocalizacion(localizacion);
+                proyecto.setLineaAccion(lineaAccion);
+                proyecto.setSubLineaAccion(subLineaAccion);
+                proyecto.setFechaInicio(fechaInicioEpochMilli);
+                proyecto.setFechaFin(fechaFinEpochMilli);
+                proyecto.setSocioLocal(socioLocal);
+                proyecto.setFinanciador(financiador);
+                proyecto.setFinanciacionAportada(financiacionAportada);
+                proyecto.setDelegacion(delegacion);
             } else {
-                proyecto = new Proyecto(nombre, pais, localizacion, lineaAccion, subLineaAccion,
-                        new Date(fechaInicio.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()),
-                        new Date(fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()),
-                        socioLocal, financiador, financiacionAportada, delegacion);
+                proyecto = new Proyecto(nombre, pais, localizacion, lineaAccion, subLineaAccion, fechaInicioEpochMilli,
+                        fechaFinEpochMilli, socioLocal, financiador, financiacionAportada, delegacion);
             }
 
             try {
@@ -129,15 +138,25 @@ public class ProyectoFormController implements Initializable {
         }
     }
 
-//    public void editDelegacion(Delegacion delegacionSeleted) {
-//        this.delegacion = delegacionSeleted;
-//        formTitle.setText("Editar Delegación");
-//
-//        direccionField.setText(delegacionSeleted.getDireccion());
-//        ciudadField.setText(delegacionSeleted.getCiudad());
-//        emailField.setText(delegacionSeleted.getEmail());
-//        telefonoField.setText(delegacionSeleted.getTelefono());
-//        centralFieldYes.setSelected(delegacionSeleted.getCentral());
-//        centralFieldNo.setSelected(!delegacionSeleted.getCentral());
-//    }
+    public void editProyecto(Proyecto proyectoSelected) {
+        this.proyecto = proyectoSelected;
+        formTitle.setText("Editar Proyecto");
+
+        nombreField.setText(proyectoSelected.getNombre());
+        paisField.setText(proyectoSelected.getPais());
+        localizacionField.setText(proyectoSelected.getLocalizacion());
+        lineaAccionField.setText(proyectoSelected.getLineaAccion());
+        subLineaAccionField.setText(proyectoSelected.getSubLineaAccion());
+        fechaInicioField.setValue(LOCAL_DATE(proyectoSelected.getFechaInicio().toString()));
+        fechaFinField.setValue(LOCAL_DATE(proyectoSelected.getFechaFin().toString()));
+        socioLocalField.setText(proyectoSelected.getSocioLocal());
+        financiadorField.setText(proyectoSelected.getFinanciador());
+        financiacionAportadaField.setText(proyectoSelected.getFinanciacionAportada());
+        selectDelegacionField.setValue(proyectoSelected.getDelegacion());
+    }
+
+    private LocalDate LOCAL_DATE(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(dateString, formatter);
+    }
 }
