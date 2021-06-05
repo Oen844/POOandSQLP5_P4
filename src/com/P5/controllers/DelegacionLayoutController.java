@@ -5,15 +5,18 @@ import com.P5.repositories.DelegacionRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -51,6 +54,33 @@ public class DelegacionLayoutController implements Initializable {
         central.setCellValueFactory(new PropertyValueFactory<Delegacion, Boolean>("central"));
 
         delegacionesList.setItems(delegacionesData);
+
+        delegacionesList.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    System.out.println(delegacionesList.getSelectionModel().getSelectedItem());
+                    try {
+                        goTODelegacionDetail(event, delegacionesList.getSelectionModel().getSelectedItem());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private void goTODelegacionDetail(MouseEvent event, Delegacion delegacionSeleted) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../views/delegacionDetail.fxml"));
+        Parent delegacionDetail = loader.load();
+
+        DelegacionDetailController delegacionDetailController = loader.getController();
+        delegacionDetailController.showDelegacionDetail(delegacionSeleted);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Delegacion " + delegacionSeleted.getId());
+        window.setScene(new Scene(delegacionDetail, 500, 500));
     }
 
     @FXML
