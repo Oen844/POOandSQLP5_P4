@@ -1,6 +1,7 @@
 package com.P5.db;
 
 import com.P5.entities.Delegacion;
+import com.P5.entities.Proyecto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -29,6 +30,7 @@ public class DBConnection {
 
         MetadataSources metadataSources = new MetadataSources(serviceRegistry);
         metadataSources.addAnnotatedClass(Delegacion.class);
+        metadataSources.addAnnotatedClass(Proyecto.class);
         Metadata metadata = metadataSources.buildMetadata();
 
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();

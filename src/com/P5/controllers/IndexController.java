@@ -16,8 +16,19 @@ public class IndexController {
     private Button delegacionLayoutBtn;
 
     @FXML
+    private Button proyectoLayoutBtn;
+
+    @FXML
     public void goToDelegacionesLayout(ActionEvent actionEvent) throws IOException {
         Parent proyectosLayout = FXMLLoader.load(getClass().getResource("../views/delegacion/delegacionesLayout.fxml"));
+        Stage window = (Stage) delegacionLayoutBtn.getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Proyectos");
+        window.setScene(new Scene(proyectosLayout, 500, 500));
+    }
+
+    @FXML
+    void goToProyectoLayout(ActionEvent event) throws IOException {
+        Parent proyectosLayout = FXMLLoader.load(getClass().getResource("../views/proyecto/proyectosLayout.fxml"));
         Stage window = (Stage) delegacionLayoutBtn.getScene().getWindow();
         window.setTitle("ONG Entre Culturas - Proyectos");
         window.setScene(new Scene(proyectosLayout, 500, 500));

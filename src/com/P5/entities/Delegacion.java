@@ -1,8 +1,10 @@
 package com.P5.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity(name = "Delegacion")
+@Entity
+@Table()
 public class Delegacion {
 
     @Id
@@ -23,6 +25,9 @@ public class Delegacion {
 
     @Column(nullable = false, columnDefinition = "tinyint(1) default 0")
     private Boolean central;
+
+    @OneToMany(mappedBy = "delegacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Proyecto> proyectos;
 
     public Delegacion(String ciudad, String direccion, String telefono, String email, Boolean central) {
         this.ciudad = ciudad;
