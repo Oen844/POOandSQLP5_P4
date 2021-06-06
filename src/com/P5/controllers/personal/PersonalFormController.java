@@ -92,9 +92,9 @@ public class PersonalFormController implements Initializable {
 
         if (!nombre.isEmpty() && !nif.isEmpty() && !direccion.isEmpty() && delegacion != null) {
             if (this.personal != null) {
-//                proyecto.setNombre(nombre);
-//                proyecto.setPais(pais);
-//                proyecto.setLocalizacion(localizacion);
+                personal.setNombre(nombre);
+                personal.setNif(nif);
+                personal.setDireccion(direccion);
 //                proyecto.setLineaAccion(lineaAccion);
 //                proyecto.setSubLineaAccion(subLineaAccion);
 //                proyecto.setFechaInicio(fechaInicioEpochMilli);
@@ -102,7 +102,7 @@ public class PersonalFormController implements Initializable {
 //                proyecto.setSocioLocal(socioLocal);
 //                proyecto.setFinanciador(financiador);
 //                proyecto.setFinanciacionAportada(financiacionAportada);
-//                proyecto.setDelegacion(delegacion);
+                personal.setDelegacion(delegacion);
             } else {
                 personal = new Personal(nombre, nif, direccion, delegacion);
             }
@@ -120,23 +120,23 @@ public class PersonalFormController implements Initializable {
         }
     }
 
-//    public void editProyecto(Proyecto proyectoSelected) {
-//        this.proyecto = proyectoSelected;
-//        formTitle.setText("Editar Proyecto");
-//
-//        nombreField.setText(proyectoSelected.getNombre());
-//        paisField.setText(proyectoSelected.getPais());
-//        localizacionField.setText(proyectoSelected.getLocalizacion());
-//        lineaAccionField.setText(proyectoSelected.getLineaAccion());
-//        subLineaAccionField.setText(proyectoSelected.getSubLineaAccion());
-//        fechaInicioField.setValue(LOCAL_DATE(proyectoSelected.getFechaInicio().toString()));
-//        fechaFinField.setValue(LOCAL_DATE(proyectoSelected.getFechaFin().toString()));
-//        socioLocalField.setText(proyectoSelected.getSocioLocal());
-//        financiadorField.setText(proyectoSelected.getFinanciador());
-//        financiacionAportadaField.setText(proyectoSelected.getFinanciacionAportada());
-//        selectDelegacionField.setValue(proyectoSelected.getDelegacion());
-//    }
-//
+    public void editPersonal(Personal personalSelected) {
+        this.personal = personalSelected;
+        formTitle.setText("Editar Empleado");
+
+        nombreField.setText(personalSelected.getNombre());
+        nifField.setText(personalSelected.getNif());
+        direccionField.setText(personalSelected.getDireccion());
+//        lineaAccionField.setText(personalSelected.getLineaAccion());
+//        subLineaAccionField.setText(personalSelected.getSubLineaAccion());
+//        fechaInicioField.setValue(LOCAL_DATE(personalSelected.getFechaInicio().toString()));
+//        fechaFinField.setValue(LOCAL_DATE(personalSelected.getFechaFin().toString()));
+//        socioLocalField.setText(personalSelected.getSocioLocal());
+//        financiadorField.setText(personalSelected.getFinanciador());
+//        financiacionAportadaField.setText(personalSelected.getFinanciacionAportada());
+        selectDelegacionField.setValue(personalSelected.getDelegacion());
+    }
+
 //    private LocalDate LOCAL_DATE(String dateString) {
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        return LocalDate.parse(dateString, formatter);
