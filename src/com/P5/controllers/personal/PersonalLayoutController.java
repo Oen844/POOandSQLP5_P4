@@ -61,33 +61,33 @@ public class PersonalLayoutController implements Initializable {
 
         personalList.setItems(personalData);
 
-//        proyectosList.setOnMousePressed(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-//                    System.out.println(proyectosList.getSelectionModel().getSelectedItem());
-//                    try {
-//                        goTOProyectoDetail(event, proyectosList.getSelectionModel().getSelectedItem());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
+        personalList.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    System.out.println(personalList.getSelectionModel().getSelectedItem());
+                    try {
+                        goToPersonalDetail(event, personalList.getSelectionModel().getSelectedItem());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
-//    private void goTOProyectoDetail(MouseEvent event, Proyecto proyectoSeleted) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("../../views/proyecto/proyectoDetail.fxml"));
-//        Parent delegacionDetail = loader.load();
-//
-//        ProyectoDetailController proyectoDetailController = loader.getController();
-//        proyectoDetailController.showProyectoDetail(proyectoSeleted);
-//
-//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        window.setTitle("ONG Entre Culturas - Proyecto " + proyectoSeleted.getId());
-//        window.setScene(new Scene(delegacionDetail, 500, 500));
-//    }
+    private void goToPersonalDetail(MouseEvent event, Personal personalSelected) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../../views/personal/personalDetail.fxml"));
+        Parent personalDetail = loader.load();
+
+        PersonalDetailController personalDetailController = loader.getController();
+        personalDetailController.showPersonalDetail(personalSelected);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Empleado " + personalSelected.getId());
+        window.setScene(new Scene(personalDetail, 500, 500));
+    }
 
     @FXML
     void goToHome(ActionEvent event) throws IOException {

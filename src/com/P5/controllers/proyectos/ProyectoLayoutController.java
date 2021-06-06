@@ -79,7 +79,7 @@ public class ProyectoLayoutController implements Initializable {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                     System.out.println(proyectosList.getSelectionModel().getSelectedItem());
                     try {
-                        goTOProyectoDetail(event, proyectosList.getSelectionModel().getSelectedItem());
+                        goToProyectoDetail(event, proyectosList.getSelectionModel().getSelectedItem());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -88,7 +88,7 @@ public class ProyectoLayoutController implements Initializable {
         });
     }
 
-    private void goTOProyectoDetail(MouseEvent event, Proyecto proyectoSeleted) throws IOException {
+    private void goToProyectoDetail(MouseEvent event, Proyecto proyectoSeleted) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../../views/proyecto/proyectoDetail.fxml"));
         Parent delegacionDetail = loader.load();
