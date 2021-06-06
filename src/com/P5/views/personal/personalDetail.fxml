@@ -147,8 +147,8 @@
 <!--                </Label>-->
                 <Button fx:id="editBtn" layoutX="30.0" layoutY="372.0" mnemonicParsing="false"
                         onAction="#goToEditPersonalForm" prefHeight="48.0" prefWidth="440.0" text="Editar"/>
-                <!--                <Button fx:id="deleteBtn" layoutX="30.0" layoutY="438.0" mnemonicParsing="false"-->
-                <!--                        onAction="#deleteProyecto" prefHeight="48.0" prefWidth="440.0" text="Eliminar"/>-->
+                <Button fx:id="deleteBtn" layoutX="30.0" layoutY="438.0" mnemonicParsing="false"
+                        onAction="#deletePersonal" prefHeight="48.0" prefWidth="440.0" text="Eliminar"/>
             </children>
         </Pane>
     </children>

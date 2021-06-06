@@ -1,6 +1,8 @@
 package com.P5.controllers.personal;
 
 import com.P5.entities.Personal;
+import com.P5.repositories.PersonalRepository;
+import com.P5.utils.Dialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -92,17 +95,17 @@ public class PersonalDetailController {
         window.setScene(new Scene(delegacionFom, 500, 500));
     }
 
-//    @FXML
-//    void deleteProyecto(ActionEvent event) {
-//        ButtonType responseDialog = Dialog.confirmation("¿Desea eleminar definitivamente este proyecto?");
-//
-//        if (responseDialog == ButtonType.YES) {
-//            ProyectoRepository.delete(proyectoSelected);
-//            try {
-//                goToProyectoLayout(null);
-//            } catch (IOException e) {
-//                Dialog.error(e.getMessage());
-//            }
-//        }
-//    }
+    @FXML
+    void deletePersonal(ActionEvent event) {
+        ButtonType responseDialog = Dialog.confirmation("¿Desea eleminar definitivamente este empleado?");
+
+        if (responseDialog == ButtonType.YES) {
+            PersonalRepository.delete(personalSelected);
+            try {
+                goToPersonalLayout(null);
+            } catch (IOException e) {
+                Dialog.error(e.getMessage());
+            }
+        }
+    }
 }

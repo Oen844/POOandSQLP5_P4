@@ -29,11 +29,11 @@ public class PersonalRepository {
         return personal;
     }
 
-//    public static void delete(Proyecto proyecto) {
-//        Session session = DBConnection.getSession();
-//        Transaction transaction = session.beginTransaction();
-//        session.delete(proyecto);
-//        transaction.commit();
-//        session.close();
-//    }
+    public static void delete(Personal personal) {
+        Session session = DBConnection.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(personal);
+        transaction.commit();
+        session.close();
+    }
 }
