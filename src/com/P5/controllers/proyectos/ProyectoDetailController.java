@@ -84,7 +84,7 @@ public class ProyectoDetailController {
     @FXML
     void goToEditProyectoForm(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../../views/proyecto/proyectoForm.fxml"));
+        loader.setLocation(getClass().getResource("../../views/proyecto/personalForm.fxml"));
         Parent delegacionFom = loader.load();
 
         ProyectoFormController proyectoFormController = loader.getController();

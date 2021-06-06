@@ -97,11 +97,11 @@ public class PersonalLayoutController implements Initializable {
         window.setScene(new Scene(index, 500, 500));
     }
 
-//    @FXML
-//    void goToAddPersonal(ActionEvent event) throws IOException {
-//        Parent index = FXMLLoader.load(getClass().getResource("../../views/proyecto/proyectoForm.fxml"));
-//        Stage window = (Stage) homeBtn.getScene().getWindow();
-//        window.setTitle("ONG Entre Culturas - Nuevo Proyecto");
-//        window.setScene(new Scene(index, 500, 500));
-//    }
+    @FXML
+    void goToAddPersonal(ActionEvent event) throws IOException {
+        Parent index = FXMLLoader.load(getClass().getResource("../../views/personal/personalForm.fxml"));
+        Stage window = (Stage) homeBtn.getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Nuevo Empleado");
+        window.setScene(new Scene(index, 500, 500));
+    }
 }
