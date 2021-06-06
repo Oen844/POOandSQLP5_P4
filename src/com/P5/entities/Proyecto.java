@@ -2,6 +2,7 @@ package com.P5.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table()
@@ -41,14 +42,14 @@ public class Proyecto {
     @Column(nullable = false)
     private String financiacionAportada;
 
-//    @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL)
-//    private ArrayList<Personal> personalAsociado;
+    @ManyToMany(mappedBy = "personal")
+    private List<Personal> personalAsociado;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private Delegacion delegacion;
 
-    public Proyecto(String nombre, String pais, String localizacion, String lineaAccion, String subLineaAccion, Date fechaInicio, Date fechaFin, String socioLocal, String financiador, String financiacionAportada/*, ArrayList<Personal> personalAsociado*/, Delegacion delegacion) {
+    public Proyecto(String nombre, String pais, String localizacion, String lineaAccion, String subLineaAccion, Date fechaInicio, Date fechaFin, String socioLocal, String financiador, String financiacionAportada, Delegacion delegacion) {
         this.nombre = nombre;
         this.pais = pais;
         this.localizacion = localizacion;
@@ -59,7 +60,6 @@ public class Proyecto {
         this.socioLocal = socioLocal;
         this.financiador = financiador;
         this.financiacionAportada = financiacionAportada;
-//        this.personalAsociado = personalAsociado;
         this.delegacion = delegacion;
     }
 
@@ -151,13 +151,9 @@ public class Proyecto {
         this.financiacionAportada = financiacionAportada;
     }
 
-//    public ArrayList<Personal> getPersonalAsociado() {
-//        return personalAsociado;
-//    }
-//
-//    public void setPersonalAsociado(ArrayList<Personal> personalAsociado) {
-//        this.personalAsociado = personalAsociado;
-//    }
+    public List<Personal> getPersonalAsociado() {
+        return personalAsociado;
+    }
 
     public Delegacion getDelegacion() {
         return delegacion;

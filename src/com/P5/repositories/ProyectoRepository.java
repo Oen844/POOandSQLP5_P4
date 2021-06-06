@@ -13,7 +13,7 @@ public class ProyectoRepository {
     public static List<Proyecto> getAll() {
         Session session = DBConnection.getSession();
         session.beginTransaction();
-        List<Proyecto> proyectos = session.createQuery("FROM Proyecto ", Proyecto.class).list();
+        List<Proyecto> proyectos = session.createQuery("FROM Proyecto", Proyecto.class).list();
         session.close();
 
         return proyectos;

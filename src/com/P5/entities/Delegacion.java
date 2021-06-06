@@ -1,7 +1,7 @@
 package com.P5.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table()
@@ -27,7 +27,10 @@ public class Delegacion {
     private Boolean central;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "delegacion", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Proyecto> proyectos;
+    private Set<Proyecto> proyectos;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "delegacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Personal> personal;
 
     public Delegacion(String ciudad, String direccion, String telefono, String email, Boolean central) {
         this.ciudad = ciudad;
@@ -85,8 +88,12 @@ public class Delegacion {
         this.central = central;
     }
 
-    public List<Proyecto> getProyectos() {
+    public Set<Proyecto> getProyectos() {
         return proyectos;
+    }
+
+    public Set<Personal> getPersonal() {
+        return personal;
     }
 
     @Override

@@ -19,6 +19,9 @@ public class IndexController {
     private Button proyectoLayoutBtn;
 
     @FXML
+    private Button personalLayoutBtn;
+
+    @FXML
     public void goToDelegacionesLayout(ActionEvent actionEvent) throws IOException {
         Parent proyectosLayout = FXMLLoader.load(getClass().getResource("../views/delegacion/delegacionesLayout.fxml"));
         Stage window = (Stage) delegacionLayoutBtn.getScene().getWindow();
@@ -29,8 +32,16 @@ public class IndexController {
     @FXML
     void goToProyectoLayout(ActionEvent event) throws IOException {
         Parent proyectosLayout = FXMLLoader.load(getClass().getResource("../views/proyecto/proyectosLayout.fxml"));
-        Stage window = (Stage) delegacionLayoutBtn.getScene().getWindow();
+        Stage window = (Stage) proyectoLayoutBtn.getScene().getWindow();
         window.setTitle("ONG Entre Culturas - Proyectos");
+        window.setScene(new Scene(proyectosLayout, 500, 500));
+    }
+
+    @FXML
+    void goToPersonalLayout(ActionEvent event) throws IOException {
+        Parent proyectosLayout = FXMLLoader.load(getClass().getResource("../views/personal/personalLayout.fxml"));
+        Stage window = (Stage) personalLayoutBtn.getScene().getWindow();
+        window.setTitle("ONG Entre Culturas - Personal");
         window.setScene(new Scene(proyectosLayout, 500, 500));
     }
 }

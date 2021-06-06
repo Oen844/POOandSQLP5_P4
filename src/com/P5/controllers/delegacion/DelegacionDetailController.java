@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 public class DelegacionDetailController {
 
@@ -43,9 +44,6 @@ public class DelegacionDetailController {
 
     @FXML
     private Label centralLabel;
-
-    @FXML
-    private TitledPane proyectosPanel;
 
     @FXML
     private TableView<Proyecto> proyectosTablePanel;
@@ -76,7 +74,7 @@ public class DelegacionDetailController {
         centralLabel.setText(delegacionSeleted.getCentral() ? "Si" : "No");
 
 
-        List<Proyecto> proyectos = delegacionSeleted.getProyectos();
+        Set<Proyecto> proyectos = delegacionSeleted.getProyectos();
 
         TableColumn id = new TableColumn("ID");
         TableColumn nombre = new TableColumn("Nombre");
