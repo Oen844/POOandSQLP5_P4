@@ -24,12 +24,7 @@ public class Personal {
     @JoinColumn(nullable = false)
     private Delegacion delegacion;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "Personal_Proyecto",
-            joinColumns = {@JoinColumn(name = "personalAsociado_id")},
-            inverseJoinColumns = {@JoinColumn(name = "proyectos_id")}
-    )
+    @ManyToMany(fetch=FetchType.EAGER, mappedBy = "personalAsociado")
     private List<Proyecto> proyectos;
 
     public Personal(String nombre, String nif, String direccion, Delegacion delegacion) {

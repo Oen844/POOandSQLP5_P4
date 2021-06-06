@@ -42,7 +42,11 @@ public class Proyecto {
     @Column(nullable = false)
     private String financiacionAportada;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "proyectos")
+    @ManyToMany(fetch=FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "proyecto_personal",
+            joinColumns = @JoinColumn(name = "personal_id"),
+            inverseJoinColumns = @JoinColumn(name = "proyecto_id")
+    )
     private List<Personal> personalAsociado;
 
     @ManyToOne
