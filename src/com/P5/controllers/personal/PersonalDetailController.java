@@ -1,20 +1,24 @@
 package com.P5.controllers.personal;
 
 import com.P5.entities.Personal;
+import com.P5.entities.Proyecto;
 import com.P5.repositories.PersonalRepository;
 import com.P5.utils.Dialog;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
 
 public class PersonalDetailController {
 
@@ -30,26 +34,8 @@ public class PersonalDetailController {
     @FXML
     private Label direccionLabel;
 
-//    @FXML
-//    private Label lineaAccionLabel;
-//
-//    @FXML
-//    private Label sublineaAccionLabel;
-//
-//    @FXML
-//    private Label fechaInicioLabel;
-//
-//    @FXML
-//    private Label fechaFinLabel;
-//
-//    @FXML
-//    private Label socioLocalLabel;
-//
-//    @FXML
-//    private Label financiadorLabel;
-//
-//    @FXML
-//    private Label financiacionAportadaLabel;
+    @FXML
+    private TableView<Proyecto> proyectosTablePanel;
 
     @FXML
     private Button editBtn;
@@ -72,13 +58,39 @@ public class PersonalDetailController {
         nombreLabel.setText(personal.getNombre());
         nifLabel.setText(personal.getNif());
         direccionLabel.setText(personal.getDireccion());
-//        lineaAccionLabel.setText(personal.getLineaAccion());
-//        sublineaAccionLabel.setText(personal.getSubLineaAccion());
-//        fechaInicioLabel.setText(personal.getFechaInicio().toString());
-//        fechaFinLabel.setText(personal.getFechaFin().toString());
-//        socioLocalLabel.setText(personal.getSocioLocal());
-//        financiadorLabel.setText(personal.getFinanciador());
-//        financiacionAportadaLabel.setText(personal.getFinanciacionAportada());
+
+        buildProyectosAccordionTable(personal.getProyectos());
+    }
+
+    private void buildProyectosAccordionTable(List<Proyecto> proyectos) {
+        TableColumn id = new TableColumn("ID");
+        TableColumn nombre = new TableColumn("Nombre");
+        TableColumn pais = new TableColumn("País");
+        TableColumn localizacion = new TableColumn("Localización");
+        TableColumn lineaAccion = new TableColumn("Linea de Acción");
+        TableColumn subLineaAccion = new TableColumn("SubLinea de Acción");
+        TableColumn fechaInicio = new TableColumn("Fecha de Inicio");
+        TableColumn fechaFin = new TableColumn("Fecha de Fin");
+        TableColumn socioLocal = new TableColumn("Socio Local");
+        TableColumn financiador = new TableColumn("Financiador");
+        TableColumn financiacionAportada = new TableColumn("Financiación Aportada");
+        proyectosTablePanel.getColumns().addAll(id, nombre, pais, localizacion, lineaAccion, subLineaAccion, fechaInicio, fechaFin, socioLocal, financiador, financiacionAportada);
+
+        ObservableList<Proyecto> proyectosData = FXCollections.observableArrayList(proyectos);
+
+        id.setCellValueFactory(new PropertyValueFactory<Proyecto, Long>("id"));
+        nombre.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("nombre"));
+        pais.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("pais"));
+        localizacion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("localizacion"));
+        lineaAccion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("lineaAccion"));
+        subLineaAccion.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("subLineaAccion"));
+        fechaInicio.setCellValueFactory(new PropertyValueFactory<Proyecto, Date>("fechaInicio"));
+        fechaFin.setCellValueFactory(new PropertyValueFactory<Proyecto, Date>("fechaFin"));
+        socioLocal.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("socioLocal"));
+        financiador.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("financiador"));
+        financiacionAportada.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("financiacionAportada"));
+
+        proyectosTablePanel.setItems(proyectosData);
     }
 
     @FXML

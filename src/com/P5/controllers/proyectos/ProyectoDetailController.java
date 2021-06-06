@@ -1,20 +1,23 @@
 package com.P5.controllers.proyectos;
 
+import com.P5.entities.Personal;
 import com.P5.entities.Proyecto;
 import com.P5.repositories.ProyectoRepository;
 import com.P5.utils.Dialog;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ProyectoDetailController {
 
@@ -52,6 +55,9 @@ public class ProyectoDetailController {
     private Label financiacionAportadaLabel;
 
     @FXML
+    private TableView<Personal> personalTablePanel;
+
+    @FXML
     private Button editBtn;
 
     @FXML
@@ -79,12 +85,31 @@ public class ProyectoDetailController {
         socioLocalLabel.setText(proyectoSeleted.getSocioLocal());
         financiadorLabel.setText(proyectoSeleted.getFinanciador());
         financiacionAportadaLabel.setText(proyectoSeleted.getFinanciacionAportada());
+
+        buildPersonalAccordionTable(proyectoSeleted.getPersonalAsociado());
+    }
+
+    private void buildPersonalAccordionTable(List<Personal> personalAsociado) {
+        TableColumn id = new TableColumn("ID");
+        TableColumn nombre = new TableColumn("Nombre");
+        TableColumn nif = new TableColumn("NIF");
+        TableColumn direccion = new TableColumn("Dirección");
+        personalTablePanel.getColumns().addAll(id, nombre, nif, direccion);
+
+        ObservableList<Personal> personalData = FXCollections.observableArrayList(personalAsociado);
+
+        id.setCellValueFactory(new PropertyValueFactory<Proyecto, Long>("id"));
+        nombre.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("nombre"));
+        nif.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("nif"));
+        direccion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("direccion"));
+
+        personalTablePanel.setItems(personalData);
     }
 
     @FXML
     void goToEditProyectoForm(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../../views/proyecto/personalForm.fxml"));
+        loader.setLocation(getClass().getResource("../../views/proyecto/proyectoForm.fxml"));
         Parent delegacionFom = loader.load();
 
         ProyectoFormController proyectoFormController = loader.getController();

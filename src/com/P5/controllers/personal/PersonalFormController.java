@@ -95,13 +95,6 @@ public class PersonalFormController implements Initializable {
                 personal.setNombre(nombre);
                 personal.setNif(nif);
                 personal.setDireccion(direccion);
-//                proyecto.setLineaAccion(lineaAccion);
-//                proyecto.setSubLineaAccion(subLineaAccion);
-//                proyecto.setFechaInicio(fechaInicioEpochMilli);
-//                proyecto.setFechaFin(fechaFinEpochMilli);
-//                proyecto.setSocioLocal(socioLocal);
-//                proyecto.setFinanciador(financiador);
-//                proyecto.setFinanciacionAportada(financiacionAportada);
                 personal.setDelegacion(delegacion);
             } else {
                 personal = new Personal(nombre, nif, direccion, delegacion);

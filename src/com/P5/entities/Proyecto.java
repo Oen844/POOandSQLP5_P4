@@ -42,14 +42,16 @@ public class Proyecto {
     @Column(nullable = false)
     private String financiacionAportada;
 
-    @ManyToMany(mappedBy = "personal")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "proyectos")
     private List<Personal> personalAsociado;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private Delegacion delegacion;
 
-    public Proyecto(String nombre, String pais, String localizacion, String lineaAccion, String subLineaAccion, Date fechaInicio, Date fechaFin, String socioLocal, String financiador, String financiacionAportada, Delegacion delegacion) {
+    public Proyecto(String nombre, String pais, String localizacion, String lineaAccion, String subLineaAccion,
+                    Date fechaInicio, Date fechaFin, String socioLocal, String financiador, String financiacionAportada,
+                    List<Personal> personalAsociado, Delegacion delegacion) {
         this.nombre = nombre;
         this.pais = pais;
         this.localizacion = localizacion;
@@ -60,6 +62,7 @@ public class Proyecto {
         this.socioLocal = socioLocal;
         this.financiador = financiador;
         this.financiacionAportada = financiacionAportada;
+        this.personalAsociado = personalAsociado;
         this.delegacion = delegacion;
     }
 
@@ -153,6 +156,10 @@ public class Proyecto {
 
     public List<Personal> getPersonalAsociado() {
         return personalAsociado;
+    }
+
+    public void setPersonalAsociado(List<Personal> personalAsociado) {
+        this.personalAsociado = personalAsociado;
     }
 
     public Delegacion getDelegacion() {

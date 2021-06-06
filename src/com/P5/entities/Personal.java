@@ -24,16 +24,13 @@ public class Personal {
     @JoinColumn(nullable = false)
     private Delegacion delegacion;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "Personal_Proyecto",
-            joinColumns = {@JoinColumn(name = "personal_id")},
-            inverseJoinColumns = {@JoinColumn(name = "proyecto_id")}
+            joinColumns = {@JoinColumn(name = "personalAsociado_id")},
+            inverseJoinColumns = {@JoinColumn(name = "proyectos_id")}
     )
-    private List<Personal> personal;
+    private List<Proyecto> proyectos;
 
     public Personal(String nombre, String nif, String direccion, Delegacion delegacion) {
         this.nombre = nombre;
@@ -80,5 +77,24 @@ public class Personal {
 
     public void setDelegacion(Delegacion delegacion) {
         this.delegacion = delegacion;
+    }
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
+    }
+
+    @Override
+    public String toString() {
+        return "Personal{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", nif='" + nif + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", delegacion=" + delegacion +
+                '}';
     }
 }

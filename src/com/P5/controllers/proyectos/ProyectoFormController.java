@@ -1,8 +1,10 @@
 package com.P5.controllers.proyectos;
 
 import com.P5.entities.Delegacion;
+import com.P5.entities.Personal;
 import com.P5.entities.Proyecto;
 import com.P5.repositories.DelegacionRepository;
+import com.P5.repositories.PersonalRepository;
 import com.P5.repositories.ProyectoRepository;
 import com.P5.utils.Dialog;
 import javafx.collections.FXCollections;
@@ -23,6 +25,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,6 +68,9 @@ public class ProyectoFormController implements Initializable {
     private TextField financiacionAportadaField;
 
     @FXML
+    private ListView<Personal> personalAsociadoList;
+
+    @FXML
     private ChoiceBox<Delegacion> selectDelegacionField;
 
     @FXML
@@ -75,8 +81,13 @@ public class ProyectoFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Delegacion> delegaciones = DelegacionRepository.getAll();
-        ObservableList<Delegacion> delegacionesData = FXCollections.observableArrayList(delegaciones);
-        selectDelegacionField.setItems(delegacionesData);
+        ObservableList<Delegacion> delegacionesOptions = FXCollections.observableArrayList(delegaciones);
+        selectDelegacionField.setItems(delegacionesOptions);
+
+        List<Personal> personal = PersonalRepository.getAll();
+        ObservableList<Personal> personalOptions = FXCollections.observableArrayList(personal);
+        personalAsociadoList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        personalAsociadoList.setItems(personalOptions);
     }
 
     @FXML
@@ -99,6 +110,7 @@ public class ProyectoFormController implements Initializable {
         String socioLocal = socioLocalField.getText();
         String financiador = financiadorField.getText();
         String financiacionAportada = financiacionAportadaField.getText();
+        List<Personal> personalAsociado = extractSelectedPersonal(personalAsociadoList.getSelectionModel().getSelectedItems());
         Delegacion delegacion = selectDelegacionField.getValue();
 
         if (!nombre.isEmpty() && !pais.isEmpty() && !localizacion.isEmpty() && !lineaAccion.isEmpty()
@@ -119,10 +131,11 @@ public class ProyectoFormController implements Initializable {
                 proyecto.setSocioLocal(socioLocal);
                 proyecto.setFinanciador(financiador);
                 proyecto.setFinanciacionAportada(financiacionAportada);
+                proyecto.setPersonalAsociado(personalAsociado);
                 proyecto.setDelegacion(delegacion);
             } else {
                 proyecto = new Proyecto(nombre, pais, localizacion, lineaAccion, subLineaAccion, fechaInicioEpochMilli,
-                        fechaFinEpochMilli, socioLocal, financiador, financiacionAportada, delegacion);
+                        fechaFinEpochMilli, socioLocal, financiador, financiacionAportada, personalAsociado, delegacion);
             }
 
             try {
@@ -136,6 +149,16 @@ public class ProyectoFormController implements Initializable {
         } else {
             Dialog.error("Todos los campos son obligatorios.");
         }
+    }
+
+    private List<Personal> extractSelectedPersonal(ObservableList<Personal> selectedItems) {
+        List<Personal> personal = new ArrayList<>();
+
+        for (Personal p : selectedItems) {
+            personal.add(p);
+        }
+
+        return personal;
     }
 
     public void editProyecto(Proyecto proyectoSelected) {
@@ -153,6 +176,16 @@ public class ProyectoFormController implements Initializable {
         financiadorField.setText(proyectoSelected.getFinanciador());
         financiacionAportadaField.setText(proyectoSelected.getFinanciacionAportada());
         selectDelegacionField.setValue(proyectoSelected.getDelegacion());
+
+        for (Personal p : proyectoSelected.getPersonalAsociado()) {
+            personalAsociadoList.getSelectionModel().select(p);
+            for (int i = 0; i < personalAsociadoList.getItems().size(); i++) {
+                Personal pList = personalAsociadoList.getItems().get(i);
+                if (pList.getId().equals(p.getId())) {
+                    personalAsociadoList.getSelectionModel().select(i);
+                }
+            }
+        }
     }
 
     private LocalDate LOCAL_DATE(String dateString) {
