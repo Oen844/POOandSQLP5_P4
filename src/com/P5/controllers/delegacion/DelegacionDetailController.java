@@ -1,8 +1,10 @@
 package com.P5.controllers.delegacion;
 
 import com.P5.entities.Delegacion;
+import com.P5.entities.Personal;
 import com.P5.entities.Proyecto;
 import com.P5.repositories.DelegacionRepository;
+import com.P5.repositories.PersonalRepository;
 import com.P5.repositories.ProyectoRepository;
 import com.P5.utils.Dialog;
 import javafx.collections.FXCollections;
@@ -49,6 +51,9 @@ public class DelegacionDetailController {
     private TableView<Proyecto> proyectosTablePanel;
 
     @FXML
+    private TableView<Personal> personalTablePanel;
+
+    @FXML
     private Button editBtn;
 
     @FXML
@@ -74,6 +79,11 @@ public class DelegacionDetailController {
         centralLabel.setText(delegacionSeleted.getCentral() ? "Si" : "No");
 
 
+        buildProyectosAccordionTable(delegacionSeleted);
+        buildPersonalAccordionTable(delegacionSeleted);
+    }
+
+    private void buildProyectosAccordionTable(Delegacion delegacionSeleted) {
         Set<Proyecto> proyectos = delegacionSeleted.getProyectos();
 
         TableColumn id = new TableColumn("ID");
@@ -104,6 +114,25 @@ public class DelegacionDetailController {
         financiacionAportada.setCellValueFactory(new PropertyValueFactory<Proyecto, Boolean>("financiacionAportada"));
 
         proyectosTablePanel.setItems(proyectosData);
+    }
+
+    private void buildPersonalAccordionTable(Delegacion delegacionSeleted) {
+        Set<Personal> personal = delegacionSeleted.getPersonal();
+
+        TableColumn id = new TableColumn("ID");
+        TableColumn nombre = new TableColumn("Nombre");
+        TableColumn nif = new TableColumn("NIF");
+        TableColumn direccion = new TableColumn("Dirección");
+        personalTablePanel.getColumns().addAll(id, nombre, nif, direccion);
+
+        ObservableList<Personal> personalData = FXCollections.observableArrayList(personal);
+
+        id.setCellValueFactory(new PropertyValueFactory<Proyecto, Long>("id"));
+        nombre.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("nombre"));
+        nif.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("nif"));
+        direccion.setCellValueFactory(new PropertyValueFactory<Proyecto, String>("direccion"));
+
+        personalTablePanel.setItems(personalData);
     }
 
     @FXML
